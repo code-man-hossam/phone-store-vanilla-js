@@ -4,8 +4,14 @@ const total = document.querySelector('.total')
 const shopSection = document.querySelector('.shop')
 const clearBtn = document.querySelector('.clear-btn')
 const totalPrice = document.getElementById('total-price')
+const cursor = document.querySelector('.cursor')
 
-let shopData = []
+document.addEventListener('mousemove', cursorMovement)
+
+function cursorMovement(e) {
+  cursor.style.top = e.pageY + 'px'
+  cursor.style.left = e.pageX + 'px'
+}
 
 document.addEventListener('DOMContentLoaded', fetchData)
 async function fetchData() {
@@ -92,6 +98,11 @@ shopSection.addEventListener('click', (e) => {
     totalUpdate = totalUpdate - 1
     total.innerText = totalUpdate
   }
+
+  let price = +e.target.parentElement.parentElement.parentElement
+    .nextElementSibling.childNodes[3].innerText
+  let itemPrice = +e.target.previousElementSibling.innerText
+  totalPrice.innerText = price - itemPrice
 })
 
 clearBtn.addEventListener('click', () => {
